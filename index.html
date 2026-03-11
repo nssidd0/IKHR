@@ -14,15 +14,14 @@
   <iframe id="mainAppFrame" src="https://script.google.com/macros/s/AKfycbyOipwmqrX5B-U6N3fLYY8we37WpG9bZ1geyGa44uGtyOZfsGTM3fhTheawqqoKb7qN/exec"></iframe>
 
   <script>
-    // NETLIFY KA DIRECT JADU (Bina URL change kiye data bhejna)
-    document.getElementById("mainAppFrame").onload = function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const msg = urlParams.get('msg');
-      if (msg) {
-        // Iframe load hote hi Google Script ko sidha 'Message' maaro
-        this.contentWindow.postMessage(msg, '*');
-      }
-    };
+    // 1. Apna asli Google Script ka link (jo /exec par khatam hota hai) yahan dalein
+    const googleScriptUrl = "AAPKA_GOOGLE_SCRIPT_LINK_YAHAN_DALEIN";
+    
+    // 2. Netlify ke URL me aage jo bhi aaya hai (jaise ?msg=Namaz), use uthao
+    const urlQuery = window.location.search;
+    
+    // 3. Google Script ke URL me wo jod kar iframe ko chalu kar do!
+    document.getElementById("mainAppFrame").src = googleScriptUrl + urlQuery;
   </script>
 
 </body>
