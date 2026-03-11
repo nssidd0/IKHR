@@ -11,35 +11,17 @@
 </head>
 <body>
 
-<iframe id="appFrame" 
-  src="https://script.google.com/macros/s/AKfycbyOipwmqrX5B-U6N3fLYY8we37WpG9bZ1geyGa44uGtyOZfsGTM3fhTheawqqoKb7qN/exec"
-  allowfullscreen>
-</iframe>
+<iframe id="appFrame" allowfullscreen></iframe>
 
 <script>
-window.addEventListener("message", function(event){
-
-  if(!event.data) return;
-
-  let data = event.data;
-
-  if(typeof data === "string"){
-    try{
-      data = JSON.parse(data);
-    }catch(e){}
-  }
-
-  if(data.type === "deepLink" && data.msg){
-
-    incomingDeepLink = data.msg.trim().toLowerCase();
-
-    console.log("Deep link received:", incomingDeepLink);
-
-    applyDeepLink();
-
-  }
-
-});
+  // 1. Google Script ka URL
+  const gasUrl = "https://script.google.com/macros/s/AKfycbyOipwmqrX5B-U6N3fLYY8we37WpG9bZ1geyGa44uGtyOZfsGTM3fhTheawqqoKb7qN/exec";
+  
+  // 2. Jo URL me ?msg= aayega, usko uthao
+  const urlQuery = window.location.search; 
+  
+  // 3. Iframe me dono ko jod kar chalu kar do
+  document.getElementById("appFrame").src = gasUrl + urlQuery;
 </script>
 
 </body>
