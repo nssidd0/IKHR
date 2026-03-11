@@ -17,21 +17,29 @@
 </iframe>
 
 <script>
-const urlParams = new URLSearchParams(window.location.search);
-const msgValue = urlParams.get("msg");
+window.addEventListener("load", function(){
 
-if (msgValue) {
-  const iframe = document.getElementById("appFrame");
-  
-  // Wait for iframe to load, then send message
-  iframe.onload = function() {
-    iframe.contentWindow.postMessage(
-      JSON.stringify({ type: "deepLink", msg: msgValue }),
-      "*"  // or your exact GAS domain if you want tighter security
-    );
-    console.log("Sent deep link via postMessage:", msgValue);
-  };
-}
+  const params = new URLSearchParams(window.location.search);
+  const msg = params.get("msg");
+
+  if(msg){
+
+    const iframe = document.querySelector("iframe");
+
+    iframe.onload = function(){
+
+      iframe.contentWindow.postMessage(
+        { type:"deepLink", msg: msg },
+        "*"
+      );
+
+      console.log("Sent deep link via postMessage:", msg);
+
+    };
+
+  }
+
+});
 </script>
 
 </body>
