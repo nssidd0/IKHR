@@ -5,24 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Islam Ka Haqiqi Rasta</title>
   <style>
-    body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #e0e5ec; }
-    iframe { border: none; width: 100%; height: 100%; }
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #e0e5ec;
+    }
+    iframe {
+      border: none;
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
 <body>
-  
-  <iframe id="mainAppFrame" src="https://script.google.com/macros/s/AKfycbyOipwmqrX5B-U6N3fLYY8we37WpG9bZ1geyGa44uGtyOZfsGTM3fhTheawqqoKb7qN/exec"></iframe>
 
-  <script>
-    // 1. Apna asli Google Script ka link (jo /exec par khatam hota hai) yahan dalein
-    const googleScriptUrl = "AAPKA_GOOGLE_SCRIPT_LINK_YAHAN_DALEIN";
-    
-    // 2. Netlify ke URL me aage jo bhi aaya hai (jaise ?msg=Namaz), use uthao
-    const urlQuery = window.location.search;
-    
-    // 3. Google Script ke URL me wo jod kar iframe ko chalu kar do!
-    document.getElementById("mainAppFrame").src = googleScriptUrl + urlQuery;
-  </script>
+<iframe id="app" 
+  src="https://script.google.com/macros/s/AKfycbyOipwmqrX5B-U6N3fLYY8we37WpG9bZ1geyGa44uGtyOZfsGTM3fhTheawqqoKb7qN/exec"
+  allowfullscreen>
+</iframe>
+
+<script>
+// Page load hote hi query string uthao aur iframe ke src mein jod do
+const params = new URLSearchParams(window.location.search);
+const msg = params.get("msg");
+
+if (msg) {
+  const iframe = document.getElementById("app");
+  const baseUrl = iframe.src;
+  iframe.src = baseUrl + (baseUrl.includes("?") ? "&" : "?") + "msg=" + encodeURIComponent(msg);
+}
+</script>
 
 </body>
 </html>
