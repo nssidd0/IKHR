@@ -17,19 +17,20 @@
 </iframe>
 
 <script>
-// URL se ?msg=... uthao aur iframe mein forcefully jod do
 const urlParams = new URLSearchParams(window.location.search);
 const msgValue = urlParams.get("msg");
 
 if (msgValue) {
   const iframe = document.getElementById("appFrame");
-  let src = iframe.src;
   
-  // Agar pehle se ? hai to & use karo, warna ?
-  src += (src.includes("?") ? "&" : "?") + "msg=" + encodeURIComponent(msgValue);
-  iframe.src = src;
-  
-  console.log("Deep link added to iframe src:", src);
+  // Wait for iframe to load, then send message
+  iframe.onload = function() {
+    iframe.contentWindow.postMessage(
+      JSON.stringify({ type: "deepLink", msg: msgValue }),
+      "*"  // or your exact GAS domain if you want tighter security
+    );
+    console.log("Sent deep link via postMessage:", msgValue);
+  };
 }
 </script>
 
