@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Islam Ka Haqiqi Rasta</title>
-    <link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=1jvON5aXJep28beXkF-_hTsbdsaTCBluP&sz=w64">
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden; /* Scrollbar hatane ke liye */
-            background-color: #e0e5ec; /* Aapke theme ka default color */
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Islam Ka Haqiqi Rasta</title>
+  <style>
+    /* Full screen bina kisi scrollbar ke */
+    body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #e0e5ec; }
+    iframe { border: none; width: 100%; height: 100%; }
+  </style>
 </head>
 <body>
+  
+  <iframe id="mainAppFrame" src="https://script.google.com/macros/s/AKfycbyOipwmqrX5B-U6N3fLYY8we37WpG9bZ1geyGa44uGtyOZfsGTM3fhTheawqqoKb7qN/exec"></iframe>
 
-    <iframe src="https://script.google.com/macros/s/AKfycbyOipwmqrX5B-U6N3fLYY8we37WpG9bZ1geyGa44uGtyOZfsGTM3fhTheawqqoKb7qN/exec"></iframe>
+  <script>
+    // NETLIFY KA JADU: Ye code Netlify ke URL se "?msg=..." uthayega aur usko Google Script tak pahunchayega!
+    
+    // 1. Apna Google Apps Script ka URL yahan paste karein (Inverted commas " " ke andar)
+    const googleScriptUrl = "AAPKA_GOOGLE_SCRIPT_LINK_YAHAN_DALEIN";
+    
+    // 2. Netlify ke link se aage ka hissa (?msg=...) nikalna
+    const currentUrlParams = window.location.search; 
+    
+    // 3. Iframe ko bolna ki Google Script ke link mein wo "?msg=..." jod kar app ko khole
+    document.getElementById("mainAppFrame").src = googleScriptUrl + currentUrlParams;
+  </script>
 
 </body>
 </html>
