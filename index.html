@@ -17,25 +17,25 @@
 </iframe>
 
 <script>
-window.addEventListener("load", function(){
+window.addEventListener("message", function(event){
 
-  const params = new URLSearchParams(window.location.search);
-  const msg = params.get("msg");
+  if(!event.data) return;
 
-  if(msg){
+  let data = event.data;
 
-    const iframe = document.querySelector("iframe");
+  if(typeof data === "string"){
+    try{
+      data = JSON.parse(data);
+    }catch(e){}
+  }
 
-    iframe.onload = function(){
+  if(data.type === "deepLink" && data.msg){
 
-      iframe.contentWindow.postMessage(
-        { type:"deepLink", msg: msg },
-        "*"
-      );
+    incomingDeepLink = data.msg.trim().toLowerCase();
 
-      console.log("Sent deep link via postMessage:", msg);
+    console.log("Deep link received:", incomingDeepLink);
 
-    };
+    applyDeepLink();
 
   }
 
