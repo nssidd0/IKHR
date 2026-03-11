@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Islam Ka Haqiqi Rasta</title>
   <style>
-    /* Full screen bina kisi scrollbar ke */
     body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #e0e5ec; }
     iframe { border: none; width: 100%; height: 100%; }
   </style>
@@ -15,16 +14,15 @@
   <iframe id="mainAppFrame" src="https://script.google.com/macros/s/AKfycbyOipwmqrX5B-U6N3fLYY8we37WpG9bZ1geyGa44uGtyOZfsGTM3fhTheawqqoKb7qN/exec"></iframe>
 
   <script>
-    // NETLIFY KA JADU: Ye code Netlify ke URL se "?msg=..." uthayega aur usko Google Script tak pahunchayega!
-    
-    // 1. Apna Google Apps Script ka URL yahan paste karein (Inverted commas " " ke andar)
-    const googleScriptUrl = "AAPKA_GOOGLE_SCRIPT_LINK_YAHAN_DALEIN";
-    
-    // 2. Netlify ke link se aage ka hissa (?msg=...) nikalna
-    const currentUrlParams = window.location.search; 
-    
-    // 3. Iframe ko bolna ki Google Script ke link mein wo "?msg=..." jod kar app ko khole
-    document.getElementById("mainAppFrame").src = googleScriptUrl + currentUrlParams;
+    // NETLIFY KA DIRECT JADU (Bina URL change kiye data bhejna)
+    document.getElementById("mainAppFrame").onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const msg = urlParams.get('msg');
+      if (msg) {
+        // Iframe load hote hi Google Script ko sidha 'Message' maaro
+        this.contentWindow.postMessage(msg, '*');
+      }
+    };
   </script>
 
 </body>
